@@ -15,19 +15,25 @@
       <h1 class="text-3xl font-semibold text-font">pomodoro</h1>
 
       <!-- Tabs -->
-      <div class="flex p-1 w-full justify-between rounded-full bg-fill">
+      <div class="flex z-1 p-1 w-full justify-between rounded-full bg-fill">
         <button
-          class="px-4 py-4 text-sm font-medium text-fill bg-red-400 rounded-full"
+          aria-selected="true"
+          id="pomodoro-btn"
+          class="px-4 py-4 text-sm font-bold rounded-full"
         >
           pomodoro
         </button>
         <button
-          class="px-4 py-4 text-sm font-medium text-font hover:text-white"
+          aria-selected="false"
+          id="short-break-btn"
+          class="px-4 py-4 text-sm font-bold text-font opacity-40 hover:text-white"
         >
           short break
         </button>
         <button
-          class="px-4 py-4 text-sm font-medium text-font hover:text-white"
+          aria-selected="false"
+          id="long-break-btn"
+          class="px-4 py-4 text-sm font-bold text-font opacity-40 hover:text-white"
         >
           long break
         </button>
@@ -40,31 +46,31 @@
         <div
           class="relative w-68 h-68 flex items-center justify-center bg-fill rounded-full"
         >
-          <svg class="absolute w-full h-full transform">
+          <svg class="absolute w-full h-full transform rotate-270">
             <circle
               class="text-primary stroke-current"
               stroke-width="8"
               stroke-linecap="round"
-              stroke-dasharray="283"
-              stroke-dashoffset="25"
+              stroke-dasharray="650 1000"
+              stroke-dashoffset="0"
               cx="50%"
               cy="50%"
               r="45%"
               fill="transparent"
             />
           </svg>
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center gap-4">
             <span class="text-7xl font-bold text-font">17:59</span>
-            <button class="text-font">PAUSE</button>
+            <button class="text-font tracking-[13px]">PAUSE</button>
           </div>
         </div>
       </div>
 
       <!-- Settings Button -->
       <button class="settings-btn">
-        <img src="public/images/settings-icon.png" alt="Settings" class="w-8" />
+        <img src="/images/settings-icon.png" alt="Settings" class="w-[28px]" />
       </button>
     </div>
-    <script src="script.js"></script>
+    <script src="src/main.js"></script>
   </body>
 </html>

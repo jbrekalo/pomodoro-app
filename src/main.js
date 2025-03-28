@@ -1,24 +1,29 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+class Timer {}
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+class UIController {
+  constructor() {
+    this.allTabs = document.querySelectorAll("[aria-selected]");
+  }
 
-setupCounter(document.querySelector('#counter'))
+  setupEventListners() {
+    this.allTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        this.allTabs.forEach((tab) =>
+          tab.setAttribute("aria-selected", "false")
+        );
+
+        tab.setAttribute("aria-selected", "true");
+      });
+    });
+  }
+
+  updateScreen() {}
+}
+
+class App {}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const app = new UIController();
+  app.setupEventListners();
+  console.log(app);
+});

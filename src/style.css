@@ -10,3 +10,7 @@
   --color-font: #d7e0ff;
   --color-background: #1e213f;
 }
+
+[aria-selected="true"] {
+  @apply text-fill bg-red-400;
+}
