@@ -14,3 +14,7 @@
 [aria-selected="true"] {
   @apply text-fill bg-red-400;
 }
+
+[aria-selected="false"] {
+  @apply text-font opacity-40;
+}
