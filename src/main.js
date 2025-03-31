@@ -1,40 +1,45 @@
-class Timer {
+class Timer extends EventTarget {
   constructor() {
-    this.pomodoro = 25;
-    this.shortBreak = 5;
-    this.longBreak = 15;
-    this.timerLabel = document.querySelector(".timer");
+    super();
+
+    this.state = {
+      running: false,
+      minutes: 25,
+      seconds: 0,
+    };
   }
 
-  counter() {
-    let minutes = this.pomodoro;
-    let seconds = 0;
-    this.timerLabel.textContent = `${String(minutes).padStart(2, "0")}:${String(
-      seconds
-    ).padStart(2, "0")}`;
+  start() {
+    this.state.running = true;
+
     const countdown = setInterval(() => {
-      if (seconds === 0) {
-        if (minutes === 0) {
+      const formattedMinutes = String(this.state.minutes).padStart(2, "0");
+      const formattedSeconds = String(this.state.seconds).padStart(2, "0");
+
+      if (this.state.seconds === 0) {
+        if (this.state.minutes === 0) {
           clearInterval(countdown);
           return;
         }
-        minutes--;
-        seconds = 59;
+        this.state.minutes--;
+        this.state.seconds = 59;
       } else {
-        seconds--;
+        this.state.seconds--;
       }
-
-      this.pomodoro = `${String(minutes).padStart(2, "0")}:${String(
-        seconds
-      ).padStart(2, "0")}`;
-      this.timerLabel.textContent = `${this.pomodoro}`;
+      this.timeLeft = `${formattedMinutes}:${formattedSeconds}`;
+      this.dispatchEvent(new CustomEvent("tick", { detail: this.timeLeft }));
     }, 1000);
   }
+
+  pause() {}
+
+  reset() {}
 }
 
 class UIController {
   constructor(timer) {
     this.allTabs = document.querySelectorAll("[aria-selected]");
+    this.timerLabel = document.querySelector(".timer");
     this.controlBtn = document.getElementById("control-button");
     this.timer = timer;
   }
@@ -51,17 +56,19 @@ class UIController {
     });
 
     this.controlBtn.addEventListener("click", () => {
-      console.log("Click!");
-      this.timer.counter();
+      this.timer.start();
+      this.timer.addEventListener(
+        "tick",
+        (e) => (this.timerLabel.textContent = e.detail)
+      );
     });
   }
 
-  updateScreen() {
-    console.log(this.timer.pomodoro);
-  }
+  updateScreen() {}
 }
 
 class App {
+  constructor() {}
   init() {
     const timer = new Timer();
     const controller = new UIController(timer);

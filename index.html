@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="src/style.css" />
   </head>
   <body
-    class="font-display flex items-center justify-center bg-background text-white"
+    class="flex items-center justify-center bg-background font-display text-white"
   >
     <div
-      class="flex flex-col py-8 px-6 items-center justify-between min-h-screen min-w-screen"
+      class="flex flex-col items-center justify-between min-h-screen min-w-screen py-8 px-6"
     >
       <h1 class="text-3xl font-semibold text-font">pomodoro</h1>
 
       <!-- Tabs -->
-      <div class="flex z-1 p-1 w-full justify-between rounded-full bg-fill">
+      <div class="flex z-1 w-full justify-between rounded-full bg-fill p-1">
         <button
           aria-selected="true"
           id="pomodoro-btn"
@@ -41,12 +41,12 @@
 
       <!-- Timer Circle -->
       <div
-        class="relative w-72 h-72 flex items-center justify-center bg-gradient-to-tl from-[#2E325A] to-[#0E112A] drop-shadow-[50px_50px_50px_rgba(18,21,48,1.0)] rounded-full before:content-[''] before:absolute before:inset-[-10px] before:-z-10 before:w-[calc(100%+20px)] before:h-[calc(100%+20px)] before:rounded-full before:bg-gradient-to-tl before:from-[#2E325A] before:to-[#0E112A] before:drop-shadow-[-50px_-50px_50px_rgba(39,44,90,1.0)]"
+        class="relative flex items-center justify-center w-72 h-72 bg-gradient-to-tl from-[#2E325A] to-[#0E112A] drop-shadow-[50px_50px_50px_rgba(18,21,48,1.0)] rounded-full before:content-[''] before:absolute before:inset-[-10px] before:-z-10 before:w-[calc(100%+20px)] before:h-[calc(100%+20px)] before:rounded-full before:bg-gradient-to-tl before:from-[#2E325A] before:to-[#0E112A] before:drop-shadow-[-50px_-50px_50px_rgba(39,44,90,1.0)]"
       >
         <div
-          class="relative w-68 h-68 flex items-center justify-center bg-fill rounded-full"
+          class="relative flex items-center justify-center w-68 h-68 bg-fill rounded-full"
         >
-          <svg class="absolute w-full h-full transform rotate-270">
+          <svg class="absolute h-full w-full transform rotate-270">
             <circle
               class="text-primary stroke-current"
               stroke-width="8"
@@ -61,7 +61,7 @@
           </svg>
           <div class="flex flex-col items-center gap-4">
             <span class="timer text-7xl font-bold text-font"></span>
-            <button id="control-button" class="text-font tracking-[13px] z-2">
+            <button id="control-button" class="z-2 text-font tracking-[13px]">
               START
             </button>
           </div>
