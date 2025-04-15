@@ -72,7 +72,13 @@ class UIController {
     });
 
     this.controlBtn.addEventListener("click", () => {
-      this.timer.start();
+      if (!this.timer.state.running) {
+        this.timer.start();
+        this.controlBtn.textContent = "PAUSE";
+      } else {
+        this.timer.pause();
+        this.controlBtn.textContent = "START";
+      }
     });
   }
 
