@@ -1,9 +1,13 @@
 class Timer {
   constructor(onTick) {
-    this.state = {
-      running: false,
+    this.initialTime = {
       minutes: 25,
       seconds: 0,
+    };
+    this.state = {
+      running: false,
+      minutes: this.initialTime.minutes,
+      seconds: this.initialTime.seconds,
     };
     this.onTick = onTick;
     this.interval = null;
@@ -27,10 +31,12 @@ class Timer {
         this.state.seconds--;
       }
 
-      const formattedMinutes = String(this.state.minutes).padStart(2, "0");
-      const formattedSeconds = String(this.state.seconds).padStart(2, "0");
-
-      this.onTick(`${formattedMinutes}:${formattedSeconds}`);
+      this.onTick(
+        this.initialTime.minutes,
+        this.initialTime.seconds,
+        this.state.minutes,
+        this.state.seconds
+      );
     }, 1000);
   }
 
@@ -54,11 +60,17 @@ class UIController {
   constructor() {
     this.allTabs = document.querySelectorAll("[aria-selected]");
     this.timerLabel = document.querySelector(".timer");
+    this.timerCircle = document.getElementById("timer-circle");
     this.controlBtn = document.getElementById("control-button");
 
-    this.timer = new Timer((timeStr) => {
-      this.timerLabel.textContent = timeStr;
-    });
+    this.timer = new Timer(
+      (initialMinutes, initialSeconds, minutes, seconds) => {
+        const formattedMinutes = String(minutes).padStart(2, "0");
+        const formattedSeconds = String(seconds).padStart(2, "0");
+        this.timerLabel.textContent = `${formattedMinutes}:${formattedSeconds}`;
+        this.updateCircle(initialMinutes, initialSeconds, minutes, seconds);
+      }
+    );
   }
 
   setupEventListeners() {
@@ -72,18 +84,27 @@ class UIController {
     });
 
     this.controlBtn.addEventListener("click", () => {
-      if (!this.timer.state.running) {
-        this.timer.start();
-        this.controlBtn.textContent = "PAUSE";
-      } else {
+      if (this.timer.state.running) {
         this.timer.pause();
         this.controlBtn.textContent = "START";
+      } else {
+        this.timer.start();
+        this.controlBtn.textContent = "PAUSE";
       }
     });
   }
 
   initTime() {
     this.timerLabel.textContent = "25:00";
+  }
+
+  updateCircle(initialMinutes, initialSeconds, minutes, seconds) {
+    const initialTime = initialMinutes * 60 + initialSeconds;
+    let secondsLeft = minutes * 60 + seconds;
+    this.timerCircle.setAttribute(
+      "stroke-dasharray",
+      `${(767 / initialTime) * secondsLeft} 1000`
+    );
   }
 }
 
